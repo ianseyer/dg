@@ -1,1 +1,1 @@
-web: slc start
+web: slc run
