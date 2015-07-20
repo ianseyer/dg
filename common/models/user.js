@@ -1,53 +1,42 @@
-var config = require('../../server/config.json');
-var path = require('path');
-
 module.exports = function(user) {
-  //send verification email after registration
-  user.afterRemote('create', function(context, user) {
-    console.log('> user.afterRemote triggered');
+  user.donate = function(stripeToken, amount, cb) {
+    // Set your secret key: remember to change this to your live secret key in production
+    // See your keys here https://dashboard.stripe.com/account/apikeys
+    var stripe = require("stripe")("sk_test_WfMEMY5PfzRdZxPGZY0Y6OHb");
 
-    var options = {
-      type: 'email',
-      to: user.email,
-      from: 'noreply@directgiving.com',
-      subject: 'Thanks for registering.',
-      template: path.resolve(__dirname, '../../server/views/verify.ejs'),
-      redirect: '/verified',
-      user: user
-    };
-
-    user.verify(options, function(err, response) {
-      if (err) {
-        next(err);
-        return;
-      }
-
-      console.log('> verification email sent:', response);
-
-      context.res.render('response', {
-        title: 'Signed up successfully',
-        content: 'Please check your email and click on the verification link '
-          + 'before logging in.',
-        redirectTo: '/',
-        redirectToLinkText: 'Log in'
+    // (Assuming you're using express - expressjs.com)
+    // Get the credit card details submitted by the form
+    var stripeToken = data.stripeToken;
+    var response;
+    stripe.customers.create({
+      source: stripeToken,
+      email: email,
+      description: projectId
+    }).then(function(customer) {
+      return stripe.charges.create({
+        amount: amount, // amount in cents
+        currency: "usd",
+        customer: customer.id
       });
+    }).then(function(charge) {
+      response = "Thanks for the donation!"
+      saveStripeCustomerId(user, charge.customer);
     });
-  });
 
-  //send password reset link when requested
-  user.on('resetPasswordRequest', function(info) {
-    var url = 'http://' + config.host + ':' + config.port + '/reset-password';
-    var html = 'Click <a href="' + url + '?access_token=' + info.accessToken.id
-      + '">here</a> to reset your password';
+    cb(null, response);
+  }
 
-    user.app.models.Email.send({
-      to: info.email,
-      from: info.email,
-      subject: 'Password reset',
-      html: html
-    }, function(err) {
-      if (err) return console.log('> error sending password reset email');
-      console.log('> sending password reset email to:', info.email);
-    });
-  });
+  user.remoteMethod(
+    'donate',
+    {
+      http: {path: '/users/:id/donate', verb: 'post'},
+      accepts: [
+        {arg: 'id', type: 'number', required: true},
+        {arg: 'projectId', type: 'number', required: true},
+        { arg: 'stripeToken', type: 'string', required: true, http: {source: 'body'}},
+        { arg: 'amount', type: 'number', required: true, http: {source: 'body'}},
+        { arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
+      returns: {arg: 'response', type: 'string'}
+    }
+  )
 };
