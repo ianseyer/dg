@@ -1,1 +1,1 @@
-web: slc run
+web: DEBUG=loopback:security:* node .
