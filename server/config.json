@@ -20,7 +20,8 @@
     },
     "cors": {
       "origin":"*",
-      "credentials":true
+      "credentials":true,
+      "methods":['GET', 'PUT', 'POST', 'OPTIONS', 'UPDATE', 'DELETE']
     },
     "errorHandler": {
       "disableStackTrace": false
