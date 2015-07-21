@@ -1,0 +1,6 @@
+[{
+  "accessType": "*",
+  "principalType": "ROLE",
+  "principalId": "$everyone",
+  "permission": "ALLOW"
+}]
