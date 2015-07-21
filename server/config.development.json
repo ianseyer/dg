@@ -19,7 +19,7 @@
       "limit": "100kb"
     },
     "cors": {
-      "origin":true,
+      "origin":"*",
       "credentials":true,
       "methods":['GET', 'PUT', 'POST', 'OPTIONS', 'UPDATE', 'DELETE']
     },
