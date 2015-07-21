@@ -4,6 +4,13 @@ var cors = require('cors');
 
 var app = module.exports = loopback();
 
+app.models.User.settings.acls = [{
+  "accessType": "READ",
+  "principalType": "ROLE",
+  "principalId": "$everyone",
+  "permission": "ALLOW"
+}];
+
 app.use(cors());
 
 app.start = function() {
