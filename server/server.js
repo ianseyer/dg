@@ -5,7 +5,6 @@ var cors = require('cors');
 var app = module.exports = loopback();
 
 app.use(cors());
-app.models.user.settings.acls = require('./user-acls.json');
 
 app.start = function() {
   // start the web server
