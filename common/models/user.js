@@ -34,7 +34,7 @@ module.exports = function(user) {
   user.remoteMethod(
     'donate',
     {
-      http: {path: '/users/:id/donate', verb: 'post'},
+      http: {path: '/:id/donate', verb: 'post'},
       accepts: [
         {arg: 'id', type: 'number', required: true},
         {arg: 'projectId', type: 'number', required: true},
