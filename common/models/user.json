@@ -6,9 +6,8 @@
     "validateUpsert": true
   },
   "properties": {
-    "stripeId":{
-      "type":"string",
-      "required":false,
+    "stripeId": {
+      "type":"string"
     }
   },
   "validations": [],

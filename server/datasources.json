@@ -2,6 +2,8 @@
   "db": {
     "name": "db",
     "connector": "postgresql",
-    "url":"postgres://wczyrqvtkhsmsg:mZWLyhG6jqZpnkKr_FPLA8y7Gx@ec2-54-204-27-193.compute-1.amazonaws.com:5432/dadfb3d3ucar4k"
+    "ssl":true,
+    "url":"postgres://wczyrqvtkhsmsg:mZWLyhG6jqZpnkKr_FPLA8y7Gx@ec2-54-204-27-193.compute-1.amazonaws.com:5432/dadfb3d3ucar4k",
+    "debug":true
   }
 }
