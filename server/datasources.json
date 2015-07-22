@@ -1,1 +1,7 @@
-{"db":{"name":"db","connector":"memory"}}
+{
+  "db": {
+    "name": "db",
+    "connector": "postgres",
+    "url":"postgres://wczyrqvtkhsmsg:mZWLyhG6jqZpnkKr_FPLA8y7Gx@ec2-54-204-27-193.compute-1.amazonaws.com:5432/dadfb3d3ucar4k"
+  }
+}

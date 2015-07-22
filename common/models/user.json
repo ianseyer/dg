@@ -20,13 +20,6 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "Admin",
-      "permission": "ALLOW",
-      "property": "*"
     }
   ],
   "methods": []
