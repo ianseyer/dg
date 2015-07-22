@@ -2,7 +2,7 @@ module.exports = function(user) {
   //clear default ACLs put in place by User
   clearBaseACLs = require('./clearacl.js');
   clearBaseACLs(user, require('./user.json'));
-  
+
   user.donate = function(stripeToken, amount, cb) {
     // Set your secret key: remember to change this to your live secret key in production
     // See your keys here https://dashboard.stripe.com/account/apikeys
@@ -15,12 +15,13 @@ module.exports = function(user) {
     stripe.customers.create({
       source: stripeToken,
       email: email,
-      description: projectId
+      description: 'Direct Giving'
     }).then(function(customer) {
       return stripe.charges.create({
         amount: amount, // amount in cents
         currency: "usd",
-        customer: customer.id
+        customer: customer.id,
+        metadata: {'projectId':projectId}
       });
     }).then(function(charge) {
       response = "Thanks for the donation!"
