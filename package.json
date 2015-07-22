@@ -14,7 +14,7 @@
     "loopback-datasource-juggler": "^2.19.0",
     "serve-favicon": "^2.0.1",
     "pg":"*",
-    "loopback-connector-postgres":"*"
+    "loopback-connector-postgresql":"*"
   },
   "optionalDependencies": {
     "loopback-explorer": "^1.1.0"
