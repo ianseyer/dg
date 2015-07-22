@@ -1,7 +1,7 @@
 module.exports = function(user) {
   //clear default ACLs put in place by User
-  clearBaseACLs = require('./clearacl.js');
-  clearBaseACLs(user, require('./user.json'));
+  //clearBaseACLs = require('./clearacl.js');
+  //clearBaseACLs(user, require('./user.json'));
 
   user.donate = function(stripeToken, amount, cb) {
     // Set your secret key: remember to change this to your live secret key in production
