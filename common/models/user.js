@@ -20,11 +20,10 @@ module.exports = function(user) {
       return stripe.charges.create({
         amount: parseInt(amount), // amount in cents
         currency: "usd",
-        customer: customer.id,
-        metadata: {'name':name}
+        customer: customer.id
       });
     }).then(function(charge) {
-      response = "Thanks for the donation!"
+      response = "Thanks for the donation!";
       saveStripeCustomerId(user, charge.customer);
     });
 
@@ -36,10 +35,10 @@ module.exports = function(user) {
     {
       http: {path: '/donate', verb: 'post'},
       accepts: [
-        {arg: 'stripeToken', type: 'object', required: true, http: {source: 'body'}},
-        {arg: 'amount', type: 'string', required: true, http: {source: 'body'}},
-        {arg: 'name', type: 'string', required: true, http: {source: 'body'}},
-        {arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
+        {arg: 'stripeToken', type: 'object', required: false, http: {source: 'body'}},
+        {arg: 'amount', type: 'string', required: false, http: {source: 'body'}},
+        {arg: 'name', type: 'string', required: false, http: {source: 'body'}},
+        {arg: 'email', type: 'string', required: false, http: {source: 'body'}}],
       returns: {arg: 'response', type: 'string'}
     }
   )
