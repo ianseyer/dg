@@ -1,1 +1,37 @@
-{"name":"user","base":"User","idInjection":true,"options":{"validateUpsert":true},"properties":{"stripeId":{"type":"string"}},"validations":[],"relations":{"donations":{"type":"hasMany","model":"donation","foreignKey":""}},"acls":[{"accessType":"READ","principalType":"ROLE","principalId":"$everyone","permission":"ALLOW"},{"accessType":"EXECUTE","principalType":"ROLE","principalId":"$everyone","permission":"ALLOW","property":"donate"}],"methods":[]}
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "stripeId": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "donations": {
+      "type": "hasMany",
+      "model": "donation",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "donate"
+    }
+  ],
+  "methods": []
+}

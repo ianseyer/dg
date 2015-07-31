@@ -20,8 +20,7 @@ module.exports = function(user) {
       return stripe.charges.create({
         amount: amount, // amount in cents
         currency: "usd",
-        customer: customer.id,
-        metadata: {'projectId':projectId}
+        customer: customer.id
       });
     }).then(function(charge) {
       response = "Thanks for the donation!"
@@ -34,13 +33,12 @@ module.exports = function(user) {
   user.remoteMethod(
     'donate',
     {
-      http: {path: '/:id/donate', verb: 'post'},
+      http: {path: '/donate', verb: 'post'},
       accepts: [
         {arg: 'id', type: 'number', required: true},
-        {arg: 'projectId', type: 'number', required: true},
-        { arg: 'stripeToken', type: 'string', required: true, http: {source: 'body'}},
-        { arg: 'amount', type: 'number', required: true, http: {source: 'body'}},
-        { arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
+        {arg: 'stripeToken', type: 'string', required: true, http: {source: 'body'}},
+        {arg: 'amount', type: 'number', required: true, http: {source: 'body'}},
+        {arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
       returns: {arg: 'response', type: 'string'}
     }
   )
