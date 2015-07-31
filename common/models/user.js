@@ -20,7 +20,8 @@ module.exports = function(user) {
       return stripe.charges.create({
         amount: amount, // amount in cents
         currency: "usd",
-        customer: customer.id
+        customer: customer.id,
+        metadata: {'name':name}
       });
     }).then(function(charge) {
       response = "Thanks for the donation!"
@@ -35,9 +36,9 @@ module.exports = function(user) {
     {
       http: {path: '/donate', verb: 'post'},
       accepts: [
-        {arg: 'id', type: 'number', required: true},
         {arg: 'stripeToken', type: 'string', required: true, http: {source: 'body'}},
         {arg: 'amount', type: 'number', required: true, http: {source: 'body'}},
+        {arg: 'name', type: 'string', required: true, http: {source: 'body'}},
         {arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
       returns: {arg: 'response', type: 'string'}
     }
