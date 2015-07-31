@@ -36,7 +36,7 @@ module.exports = function(user) {
     {
       http: {path: '/donate', verb: 'post'},
       accepts: [
-        {arg: 'stripeToken', type: 'string', required: true, http: {source: 'body'}},
+        {arg: 'stripeToken', type: 'object', required: true, http: {source: 'body'}},
         {arg: 'amount', type: 'number', required: true, http: {source: 'body'}},
         {arg: 'name', type: 'string', required: true, http: {source: 'body'}},
         {arg: 'email', type: 'string', required: true, http: {source: 'body'}}],
