@@ -1,1 +1,1 @@
-web: DEBUG=loopback node .
+web: slc run

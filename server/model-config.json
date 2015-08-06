@@ -1,1 +1,40 @@
-{"_meta":{"sources":["loopback/common/models","loopback/server/models","../common/models","./models"],"mixins":["loopback/common/mixins","loopback/server/mixins","../common/mixins","./mixins"]},"User":{"dataSource":"postgres","public":false},"AccessToken":{"dataSource":"postgres","public":false},"ACL":{"dataSource":"postgres","public":false},"RoleMapping":{"dataSource":"postgres","public":false},"Role":{"dataSource":"postgres","public":false},"user":{"dataSource":"postgres","public":true},"donation":{"dataSource":"postgres","public":true}}
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "postgres",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "postgres",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "postgres",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "postgres",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "postgres",
+    "public": false
+  },
+  "user": {
+    "dataSource": "postgres",
+    "public": true
+  }
+}
