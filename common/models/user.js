@@ -1,3 +1,4 @@
+var clearACLs = require('clearacl.js');
 module.exports = function(user) {
-  clearacl.clearBaseACLs(user, require('./user.json'));
+  clearACLs.clearBaseACLs(user, require('./user.json'));
 };
