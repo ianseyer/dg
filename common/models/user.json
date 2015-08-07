@@ -6,18 +6,9 @@
     "validateUpsert": true
   },
   "properties": {
-    "stripeId": {
-      "type": "string"
-    }
   },
   "validations": [],
-  "relations": {
-    "donations": {
-      "type": "hasMany",
-      "model": "donation",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "READ",
@@ -29,8 +20,7 @@
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "donate"
+      "permission": "ALLOW"
     }
   ],
   "methods": []
