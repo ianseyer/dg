@@ -1,1 +1,9 @@
-{"postgres":{"url":"postgres://wczyrqvtkhsmsg:mZWLyhG6jqZpnkKr_FPLA8y7Gx@ec2-54-204-27-193.compute-1.amazonaws.com:5432/dadfb3d3ucar4k","name":"postgres","connector":"postgresql","ssl":true,"debug":true}}
+{
+  "postgres": {
+    "url": "postgres://wkbtczassdprxn:ITRkrdASPl7ZSHDy6K8yj6KQGP@ec2-54-235-134-128.compute-1.amazonaws.com:5432/dfhhva2mgfodku&ssl=true",
+    "name": "postgres",
+    "connector": "postgresql",
+    "ssl": true,
+    "debug": true
+  }
+}
