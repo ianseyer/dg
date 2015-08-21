@@ -1,8 +1,9 @@
 //eventually, make this an environment variable
-var access_token = "27fcf1574c6034393c8e568c903d6351fbf6e6b438ad4d953019b0cb6e882d02"
+var access_token = "27fcf1574c6034393c8e568c903d6351fbf6e6b438ad4d953019b0cb6e882d02";
+var contentful = require('contentful-management');
 
 module.exports = function(app) {
-  var global.contentfulClient = contentful.createClient({
+  GLOBAL.contentfulClient = contentful.createClient({
     // A valid access token within the Space
     accessToken: access_token,
 

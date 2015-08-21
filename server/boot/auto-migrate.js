@@ -4,10 +4,7 @@ module.exports = function(app) {
   Otherwise, don't do anything!
   note: passing null to isActual and autoupdate performs the function for all models
   */
-  app.dataSources.postgres.isActual(null, function(err, actual) {
-    if (!actual) {
-        app.dataSources.postgres.autoupdate(null, function(err, result) {
-        });
-    }
-});
-};
+  app.dataSources.postgres.autoupdate(function(err, result) {
+    console.log("UPDATED MODELS")
+  });
+}

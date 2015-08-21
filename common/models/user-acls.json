@@ -1,6 +1,9 @@
-acls = [{
-  "accessType": "*",
-  "principalType": "ROLE",
-  "principalId": "$everyone",
-  "permission": "ALLOW"
-}]
+{
+  "acls":
+    [{
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }]
+}
