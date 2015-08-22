@@ -1,64 +1,9 @@
-var config = require('../../server/config.json');
-var path = require('path');
 var clearACLs = require('./clearacl.js');
 var stripe = require("stripe")(
-  process.env.STRIPE_SECRET_KEY
+  process.env.SECRET_KEY
 );
 var Q = require('q');
 var percentageFee = .1;
-var subscription = require('../helpers/subscription.js');
-
-/* email verification & password reset */
-module.exports = function(user) {
-  //send verification email after registration
-  user.afterRemote('create', function(context, user) {
-    console.log('> user.afterRemote triggered');
-
-    var options = {
-      type: 'email',
-      to: user.email,
-      from: 'support@directgiving.com',
-      subject: 'Thanks for registering.',
-      template: path.resolve(__dirname, '../../server/views/verify_email.ejs'),
-      redirect: '/verified',
-      user: user
-    };
-
-    user.verify(options, function(err, response) {
-      if (err) {
-        next(err);
-        return;
-      }
-
-      console.log('> verification email sent:', response);
-
-      context.res.render('response', {
-        title: 'Signed up successfully',
-        content: 'Please check your email and click on the verification link '
-          + 'before logging in.',
-        redirectTo: '/',
-        redirectToLinkText: 'Log in'
-      });
-    });
-  });
-
-  //send password reset link when requested
-  user.on('resetPasswordRequest', function(info) {
-    var url = 'http://' + config.host + ':' + config.port + '/reset-password';
-    var html = 'Click <a href="' + url + '?access_token=' + info.accessToken.id
-      + '">here</a> to reset your password';
-
-    user.app.models.Email.send({
-      to: info.email,
-      from: info.email,
-      subject: 'Password reset',
-      html: html
-    }, function(err) {
-      if (err) return console.log('> error sending password reset email');
-      console.log('> sending password reset email to:', info.email);
-    });
-  });
-};
 
 module.exports = function(user) {
   //remove the ACLs inherited from LBs built into User function
@@ -84,32 +29,57 @@ module.exports = function(user) {
   */
   user.observe('before save', function(ctx, next) {
     //CREATE
+    console.log(ctx.instance);
     newUser = ctx.instance;
-    if (newUser != null && ctx.isNewInstance == true) {
+    if (newUser && ctx.isNewInstance) {
       //Stripe function stack
       var createCustomer = function(){
-        return stripe.customers.create({
+        stripe.customers.create({
           description: newUser.email,
-          source: newUser.stripeToken //obtained with stripe.js
+          source: newUser.stripeToken.id //obtained with stripe.js
         })
       };
 
       var storeStripeId = function(customer){
-        console.log("WE ARE HERE");
-        console.log(customer.id);
-        console.log("ctx.data: "+ctx.data)
-        ctx.instance.stripeId = customer.id;
-        ctx.instance.content = ["7eYtnbtLMW8wMoseOyaoAw"];
+        newUser.stripeId = customer.id;
       };
 
+      //Content assignment function stack
+      var assignContent = function(){
+        //locate a piece of unused content
+        space = contentfulClient.getEntry(newUser.campaignName)
+          .then(function(space){
+            //grab all unusued entries from the campaign being donated to
+            return space.getEntries({"content_type":"campaign",   "name":newUser.campaignName, "used":false})
+          })
+          .then(function(entries){
+            //assign the user the first piece of content
+            contentSlice = entries[0];
+            if (!contentSlice || !campaignName){
+              cb(new Error("Missing Campaign name, or worse: out of content!"))
+            }
+            else {
+              //add the content to that users content,
+              newUser.content.push(contentSlice);
+              //and add the campaign to their causes
+              newUser.causes.push(campaignName);
+              //mark the content as used
+              contentSlice.used = true
+              //push changes to contentful
+              space.updateEntry(contentSlice)
+            }
+          });
+      });
+
       //execute function stack
-      createCustomer()
+      Q.fcall(createCustomer())
         .then(storeStripeId)
-        .finally(next)
-        .catch(function(error){throw error});
+        .then(assignContent())
+        .catch(function(){cb(error)});
     } else {
       //UPDATE method called
     }
+    next();
   });
 
   /**
@@ -118,57 +88,35 @@ module.exports = function(user) {
   *@param {int} id - id of the user, to be passed in the url
   *@param {int} amount - in cents!
   *@param {string} campaignName - the Contentful name of the cause
-  *
   */
-  user.donate = function(token, id, amount, campaignName, spaceName, cb){
-    var chargeStripe = function(donatingUser, campaign) {
-      return stripe.charges.create({
-            amount: amount,
-            currency: "usd",
-            customer: donatingUser.stripeId,
-            description: donatingUser.email,
-            destination: campaign.stripeId,
-            application_fee: amount * percentageFee //solid math!
-      });
+  user.donate = function(token, id, amount, causeId, cb){
+    var chargeStripe = function(donatingUser) {
+        return stripe.charges.create({
+              amount: amount,
+              currency: "usd",
+              customer: donatingUser.stripeId,
+              description: donatingUser.email,
+              destination:
+                contentfulClient.getEntry(campaignName)
+                .then(function(entry){
+                  entry.stripeId
+                })
+                .catch(handleErrors),
+              application_fee: amount * percentageFee //solid math!
+        });
     };
-
     var chargeSuccess = function(successMessage) {
             donatingUser.causes.push(causeId);
             cb(null, successMessage);
     };
-
-    var assignContent = function(){
-      subscription.assignContent(donatingUser, campaignName, spaceName)
-    };
-
     var handleErrors = function(err) {
             cb(err);
     };
 
-    //Execute our promise stack
-    var handleDonation = User.findById(id)
-      .then(function(user){
-        contentfulClient.getEntry(campaignName)
-          .then(function(entry){
-            chargeStripe(user, entry)
-            .then(chargeSuccess())
-            .then(assignContent())
-          })
-      })
-      .catch(handleErrors());
+    Q.fcall(User.findById(id))
+      .then(Cause.findById(causeId))
+      .then(chargeStripe)
+      .then(chargeSuccess)
+      .catch(handleErrors);
   }
-
-  user.remoteMethod(
-    'donate',
-    {
-      accepts: [
-        {arg: 'token'},
-        {arg: 'id'},
-        {arg: 'amount'},
-        {arg: 'campaignName'},
-        {arg: 'spaceName'}
-      ],
-      http: {path: '/users/:id/donate', verb: 'post'}
-    }
-  )
 };

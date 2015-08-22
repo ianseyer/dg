@@ -13,8 +13,9 @@
       "./mixins"
     ]
   },
-  "Email": {
-    "dataSource":"email"
+  "User": {
+    "dataSource": "postgres",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "postgres",
