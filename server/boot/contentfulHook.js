@@ -11,7 +11,7 @@
 */
 var contentful = require('contentful-management');
 var stripe = require('stripe');
-var subscription = require('common/helpers/subscription.js');
+var subscription = require('../../common/helpers/subscription.js');
 
 module.exports = function(app) {
   app.get('/contentful-hook', function(req, res){
@@ -99,13 +99,8 @@ module.exports = function(app) {
           .catch(function(error){cb(error)});
       };
     }
-    elseif(req.headers['X-Contentful-Topic'] ==
-      'ContentManagement.ContentType.publish'){
-        //create a stripe account
-        stripe.customers.create()
-        //push that stripe account to contentful
 
-    //A Campaign was published
+    //If a campaign is published
     if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish' && entry.contentType.sys.id == "campaign"){
       //create a stripe account
       stripe.customers.create({

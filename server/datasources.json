@@ -1,6 +1,6 @@
 {
   "postgres": {
-    "url": "postgres://wkbtczassdprxn:ITRkrdASPl7ZSHDy6K8yj6KQGP@ec2-54-235-134-128.compute-1.amazonaws.com:5432/dfhhva2mgfodku&ssl=true",
+    "url": "postgres://wkbtczassdprxn:ITRkrdASPl7ZSHDy6K8yj6KQGP@ec2-54-235-134-128.compute-1.amazonaws.com:5432/dfhhva2mgfodku",
     "name": "postgres",
     "connector": "postgresql",
     "ssl": true,
