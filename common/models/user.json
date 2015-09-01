@@ -6,15 +6,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "causes":{
-      "type":["String"]
-    },
-    "content":{
-      "type":["String"]
-    },
-    "stripeId":{
-      "type":"String"
-    }
+
   },
   "validations": [],
   "relations": {},

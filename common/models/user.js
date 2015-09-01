@@ -1,15 +1,18 @@
 var config = require('../../server/config.json');
 var path = require('path');
-var clearACLs = require('./clearacl.js');
 var stripe = require("stripe")(
   process.env.STRIPE_SECRET_KEY
 );
-var Q = require('q');
 var percentageFee = .1;
 var subscription = require('../helpers/subscription.js');
+var clearacl = require('../helpers/clearacl.js');
 
 /* email verification & password reset */
 module.exports = function(user) {
+  //first, clear our ACLs.
+  //as described here: https://github.com/strongloop/loopback/issues/559
+  clearacl.clearBaseACLs(user, require('./user.json'));
+
   //send verification email after registration
   user.afterRemote('create', function(context, user) {
     console.log('> user.afterRemote triggered');
@@ -61,9 +64,6 @@ module.exports = function(user) {
 };
 
 module.exports = function(user) {
-  //remove the ACLs inherited from LBs built into User function
-  clearACLs.clearBaseACLs(user, require('./user-acls.json'));
-
   /**
   * Before save hook.
   * on CREATE:

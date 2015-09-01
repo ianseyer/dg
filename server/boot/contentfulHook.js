@@ -33,17 +33,6 @@ module.exports = function(app) {
     if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish' && entry.contentType.sys.id == "story"){
       entry = req.body;
 
-      //Grab the story's campaign, and add the story to the campaign
-      // Q.fcall(contentfulClient.getSpace(entry.space.id))
-      //   .then(function(space){
-      //     return space.getEntry(entry.fields.campaign.id)
-      //   })
-      //   .then(function(campaign){
-      //     campaign.fields.entries.push(entry);
-      //     space.updateEntry(campaign);
-      //   })
-      //   .catch(function(error){cb(error)});
-
       //If the story was marked as public
       if(entry.fields.public == true){
         //assign the entry to all users
@@ -52,7 +41,7 @@ module.exports = function(app) {
          *I have opened a question on the google group asking about it:
          *https://groups.google.com/forum/#!topic/strongloop/zczeyo7biII
         */
-        Q.fcall(User.find()) //returns all users (*shudder*)
+        User.find() //returns all users (*shudder*)
           .then(function(allUsers){
             for(user in allUsers){
               if (user.causes.indexOf(entry.fields.campaign.id) != -1){
@@ -71,14 +60,14 @@ module.exports = function(app) {
           })
           .catch(function(error){cb(error)});
       }
+      //if the content was NOT marked as public
       else{
-        //the content is NOT public
-        var space = Q.fcall(contentfulClient.getSpace(entry.space.sys.id))
+        var space = contentfulClient.getSpace(entry.space.sys.id)
                       .catch(function(error){cb(error)});
 
         //find a user who is both subscribed and doesn't have content
         //from that campaign
-        Q.fcall(User.find()) //returns all users (*shudder*)
+        User.find() //returns all users (*shudder*)
           .then(function(allUsers){
             for(user in allUsers){
               if (user.causes.indexOf(entry.fields.campaign.id) != -1){
@@ -86,8 +75,7 @@ module.exports = function(app) {
                 //grab all their content, see if they have any stories from this campaign
                 usersInNeedOfContent = allUsers;
                 for(entryId in user.content){
-                  var found = false;
-                  Q.fcall(space.getEntry(entryId))
+                  space.getEntry(entryId)
                     .then(function(userEntry){
                       if(entry.fields.campaign.sys.id == userEntry.fields.campaign.sys.id){
                         //the user has content from this campaign,
@@ -102,13 +90,10 @@ module.exports = function(app) {
                     .then(function(user){
                       user.content.push(entry.id);
                       user.save;
-                      found = true;
+                      return user
                        //stop searching! we have found our mark
                     })
-                    .catch(function(error){cb(error)});
-                  if(found == true){
-                    break;
-                  }
+                  .catch(function(error){cb(error)});
                 }
               }
               else {
@@ -123,10 +108,10 @@ module.exports = function(app) {
     //A Campaign was published
     if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish' && entry.contentType.sys.id == "campaign"){
       //create a stripe account
-      Q.fcall(stripe.customers.create({
+      stripe.customers.create({
         description: entry.fields.name,
         email: entry.fields.email
-      }))
+      })
       .then(function(customer){
         entry.fields.stripeId = customer.id
         contentfulClient.updateEntry(entry);

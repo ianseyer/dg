@@ -13,7 +13,7 @@ module.exports = function(app){
   */
   var assignContent = function(user, campaignName, spaceName){
     //locate a piece of unused content
-    Q.fcall(contentfulClient.getSpace(spaceName))
+    contentfulClient.getSpace(spaceName)
       .then(function(space){
         //grab the campaign
         return space.getEntry({"content_type":"campaign", "fields.name":campaignName})
@@ -49,12 +49,12 @@ module.exports = function(app){
   */
   var notifyUser = function(user, entry){
     //do email shit
-    Q.fcall(user.app.models.Email.send({
+    user.app.models.Email.send({
       from: "support@directgiving.com",
       to: user.email,
       subject: "There's a new story to read!",
       text: entry
-    }))
+    })
     .catch(function(error){cb(error)});
   };
 };
