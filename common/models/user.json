@@ -6,7 +6,6 @@
     "validateUpsert": true
   },
   "properties": {
-
   },
   "validations": [],
   "relations": {},

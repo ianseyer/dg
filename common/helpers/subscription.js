@@ -1,8 +1,7 @@
 /**
-This file handles subscription events, such as mailing and logic
-When a new entry is created, and a user needs to be able to read it
-(e.g. it was public for a cause they have donated to, or is a Story for them),
-we need to email users telling them they have some new content to look at.
+This file handles subscription mail events.
+When a new entry is created, and is a recurring entry
+we need to email users telling them they have some new content to look at
 */
 
 module.exports = function(app){

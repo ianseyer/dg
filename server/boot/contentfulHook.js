@@ -9,24 +9,19 @@
 *        - email them a link to view the generated DG percentageFee
 * DO NOTICE WE ARE USING CONTENTFUL MANAGEMENT API, NOT DELIVERY API
 */
+var contentful = require('contentful-management');
 var stripe = require('stripe');
-var subscription = require('../../common/helpers/subscription.js');
+var subscription = require('common/helpers/subscription.js');
 
 module.exports = function(app) {
   app.get('/contentful-hook', function(req, res){
-    /**
+    /** TODO
     If an entry has been published, there are a few scenarios:
       * the entry is marked "send to all users" (e.g. an update)
-        then grab all users who have donated to that campaign,
-        attach the content to them, and notify them!
+        then grab all users who have donated to that campaign
       * the entry is a single-user piece of content
-        then grab a user that is susbcribed to the campaign, but has no content from that campaign
-        then find a piece of content that is unusued
-        assign it to them and notify them
 
-    If a contentype has been published,
-      * create a stripe account for that campaign
-      * mark the stripeID into contentful
+    otherwise,
     */
 
     //An Entry was published
@@ -104,6 +99,11 @@ module.exports = function(app) {
           .catch(function(error){cb(error)});
       };
     }
+    elseif(req.headers['X-Contentful-Topic'] ==
+      'ContentManagement.ContentType.publish'){
+        //create a stripe account
+        stripe.customers.create()
+        //push that stripe account to contentful
 
     //A Campaign was published
     if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish' && entry.contentType.sys.id == "campaign"){
