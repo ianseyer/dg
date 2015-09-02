@@ -5,6 +5,6 @@ module.exports = function(app) {
   note: passing null to isActual and autoupdate performs the function for all models
   */
   app.dataSources.postgres.autoupdate(function(err, result) {
-    //...
+
   });
 }

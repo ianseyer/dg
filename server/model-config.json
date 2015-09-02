@@ -32,9 +32,5 @@
   "Role": {
     "dataSource": "postgres",
     "public": false
-  },
-  "user": {
-    "dataSource": "postgres",
-    "public": true
   }
 }
