@@ -1,16 +1,16 @@
 /**
 This file handles subscription mail events.
 When a new entry is created, and is a recurring entry
-we need to email users telling them they have some new content to look at
+we need to email donors telling them they have some new content to look at
 */
 
 module.exports = function(app){
-  /** Assigns a piece of content to a user
+  /** Assigns a piece of content to a donor
   @param [Object] User
   @param [String] Campaign - the name of the campaign
   @param [String] Space - the name of the Space
   */
-  var assignContent = function(user, campaignName, spaceName){
+  var assignContent = function(donor, campaignName, spaceName){
     //locate a piece of unused content
     contentfulClient.getSpace(spaceName)
       .then(function(space){
@@ -22,16 +22,16 @@ module.exports = function(app){
         console.log("retrieved entries: " + entries)
       })
       .then(function(entries){
-        //assign the user the first piece of content
+        //assign the donor the first piece of content
         contentSlice = entries[0];
         if (contentSlice == null || campaignName == null){
           throw new Error("Missing Campaign name, or worse: out of content!");
         }
         else {
-          //add the content to that users content,
-          user.content.push(contentSlice);
+          //add the content to that donors content,
+          donor.content.push(contentSlice);
           //and add the campaign to their causes
-          user.causes.push(campaignName);
+          donor.causes.push(campaignName);
           //mark the content as used
           contentSlice.used = true
           //push changes to contentful
@@ -41,16 +41,16 @@ module.exports = function(app){
       .catch(function(error){cb(error)});
   }
 
-  /** Sends an email to a user about a new piece of content to view.
-  @param [Object] User - the user
+  /** Sends an email to a donor about a new piece of content to view.
+  @param [Object] User - the donor
   @param [Object] Entry - the contentful entry in question
   and notifies them via mailchimp of a new piece of content.
   */
-  var notifyUser = function(user, entry){
+  var notifyUser = function(donor, entry){
     //do email shit
-    user.app.models.Email.send({
+    donor.app.models.Email.send({
       from: "support@directgiving.com",
-      to: user.email,
+      to: donor.email,
       subject: "There's a new story to read!",
       text: entry
     })

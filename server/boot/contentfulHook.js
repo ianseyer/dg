@@ -5,7 +5,7 @@
 *       - create a stripe account
 *        - store the stripeId in the campaign on contentful
 * 2. New entry hook:
-*        - find all users with that CauseId in their subscriptions
+*        - find all donors with that CauseId in their subscriptions
 *        - email them a link to view the generated DG percentageFee
 * DO NOTICE WE ARE USING CONTENTFUL MANAGEMENT API, NOT DELIVERY API
 */
@@ -17,9 +17,9 @@ module.exports = function(app) {
   app.get('/contentful-hook', function(req, res){
     /** TODO
     If an entry has been published, there are a few scenarios:
-      * the entry is marked "send to all users" (e.g. an update)
-        then grab all users who have donated to that campaign
-      * the entry is a single-user piece of content
+      * the entry is marked "send to all donors" (e.g. an update)
+        then grab all donors who have donated to that campaign
+      * the entry is a single-donor piece of content
 
     otherwise,
     */
@@ -30,23 +30,23 @@ module.exports = function(app) {
 
       //If the story was marked as public
       if(entry.fields.public == true){
-        //assign the entry to all users
+        //assign the entry to all donors
         /*NOTE sadly, loopback does not support a "contains" filter.
          *therefore, we are going to filter ourselves.
          *I have opened a question on the google group asking about it:
          *https://groups.google.com/forum/#!topic/strongloop/zczeyo7biII
         */
-        User.find() //returns all users (*shudder*)
-          .then(function(allUsers){
-            for(user in allUsers){
-              if (user.causes.indexOf(entry.fields.campaign.id) != -1){
-                //the users causes DID contain the cause that triggered the hook
+        Donor.find() //returns all donors (*shudder*)
+          .then(function(allDonors){
+            for(donor in allDonors){
+              if (donor.causes.indexOf(entry.fields.campaign.id) != -1){
+                //the donors causes DID contain the cause that triggered the hook
                 //notify them
                 //add the entry ID to their list of content
-                user.content.push(entry.id);
-                user.save;
+                donor.content.push(entry.id);
+                donor.save;
                 //notify them
-                subscription.notifyUser(user, entry)
+                subscription.notifyDonor(donor, entry)
               }
               else {
                 //do nothing!
@@ -60,32 +60,32 @@ module.exports = function(app) {
         var space = contentfulClient.getSpace(entry.space.sys.id)
                       .catch(function(error){cb(error)});
 
-        //find a user who is both subscribed and doesn't have content
+        //find a donor who is both subscribed and doesn't have content
         //from that campaign
-        User.find() //returns all users (*shudder*)
-          .then(function(allUsers){
-            for(user in allUsers){
-              if (user.causes.indexOf(entry.fields.campaign.id) != -1){
-                //the users causes DOES contain the cause that triggered the hook
+        Donor.find() //returns all donors (*shudder*)
+          .then(function(allDonors){
+            for(donor in allDonors){
+              if (donor.causes.indexOf(entry.fields.campaign.id) != -1){
+                //the donors causes DOES contain the cause that triggered the hook
                 //grab all their content, see if they have any stories from this campaign
-                usersInNeedOfContent = allUsers;
-                for(entryId in user.content){
+                donorsInNeedOfContent = allDonors;
+                for(entryId in donor.content){
                   space.getEntry(entryId)
-                    .then(function(userEntry){
-                      if(entry.fields.campaign.sys.id == userEntry.fields.campaign.sys.id){
-                        //the user has content from this campaign,
-                        //remove the user from the list of potential users
-                        usersInNeedOfContent.remove(user);
+                    .then(function(donorEntry){
+                      if(entry.fields.campaign.sys.id == donorEntry.fields.campaign.sys.id){
+                        //the donor has content from this campaign,
+                        //remove the donor from the list of potential donors
+                        donorsInNeedOfContent.remove(donor);
                       }
-                      return usersInNeedOfContent;
+                      return donorsInNeedOfContent;
                     })
                     .then(function(pool){
-                      return User.find(pool[0].id)
+                      return Donor.find(pool[0].id)
                     })
-                    .then(function(user){
-                      user.content.push(entry.id);
-                      user.save;
-                      return user
+                    .then(function(donor){
+                      donor.content.push(entry.id);
+                      donor.save;
+                      return donor
                        //stop searching! we have found our mark
                     })
                   .catch(function(error){cb(error)});

@@ -1,5 +1,5 @@
 {
-  "name": "user",
+  "name": "donor",
   "base": "User",
   "idInjection": true,
   "options": {
@@ -7,7 +7,8 @@
   },
   "properties": {
     "causes":["String"],
-    "content":["String"]
+    "content":["String"],
+    "stripeId":"String"
   },
   "validations": [],
   "relations": {},

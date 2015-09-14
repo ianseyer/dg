@@ -5,26 +5,27 @@ var subscription = require('../helpers/subscription.js');
 var clearacl = require('../helpers/clearacl.js');
 
 /* email verification & password reset */
-module.exports = function(user) {
+module.exports = function(donor) {
   //first, clear our ACLs.
   //as described here: https://github.com/strongloop/loopback/issues/559
-  clearacl.clearBaseACLs(user, require('./user.json'));
+  clearacl.clearBaseACLs(donor, require('./donor.json'));
 
   //send verification email after registration
-  user.afterRemote('create', function(context, user) {
-    console.log('> user.afterRemote triggered');
+  donor.afterRemote('create', function(context, donor) {
+    console.log('> donor.afterRemote triggered');
 
+    /** Create stripe account */
     var options = {
       type: 'email',
-      to: user.email,
+      to: donor.email,
       from: 'support@directgiving.com',
       subject: 'Thanks for registering.',
       template: path.resolve(__dirname, '../../server/views/verify_email.ejs'),
       redirect: '/verified',
-      user: user
+      donor: donor
     };
 
-    user.verify(options, function(err, response) {
+    donor.verify(options, function(err, response) {
       if (err) {
         next(err);
         return;
@@ -43,12 +44,12 @@ module.exports = function(user) {
   });
 
   //send password reset link when requested
-  user.on('resetPasswordRequest', function(info) {
+  donor.on('resetPasswordRequest', function(info) {
     var url = 'http://' + config.host + ':' + config.port + '/reset-password';
     var html = 'Click <a href="' + url + '?access_token=' + info.accessToken.id
       + '">here</a> to reset your password';
 
-    user.app.models.Email.send({
+    donor.app.models.Email.send({
       to: info.email,
       from: info.email,
       subject: 'Password reset',
