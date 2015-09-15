@@ -3,7 +3,7 @@ var boot = require('loopback-boot');
 var cors = require('cors');
 
 var app = module.exports = loopback();
-
+require('newrelic');
 app.use(cors());
 app.start = function() {
   // start the web server
