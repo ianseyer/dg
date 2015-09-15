@@ -53,4 +53,24 @@ describe('Making a donation', function(){
     .send({'donor':testDonor, 'amount':100})
     .expect(200, done)
   });
+});
+
+describe('Adding a card', function(){
+  it("errors if it doesn't receive donor object", function(done){
+    api.post('/api/donations/addCard')
+    .send({'token':'valid'})
+    .expect(400, done)
+  });
+
+  it("errors if it doesn't receive a token", function(done){
+    api.post('/api/donations/addCard')
+    .send({'donor':testDonor})
+    .expect(400, done)
+  });
+
+  it("errors if donor object is invalid", function(done){
+    api.post('/api/donations/addCard')
+    .send({'donor':{"invalid":"donor"}, "token":"valid"})
+    .expect(500, done)
+  });
 })

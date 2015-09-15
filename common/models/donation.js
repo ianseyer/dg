@@ -1,4 +1,5 @@
 var stripe = require('stripe')(process.env.SECRET_KEY);
+var app = require('../../server/server');
 
 module.exports = function(Donation) {
   //Define custom routes
