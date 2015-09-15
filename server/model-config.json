@@ -36,5 +36,9 @@
   "Role": {
     "dataSource": "postgres",
     "public": false
+  },
+  "donation": {
+    "dataSource": null,
+    "public": true
   }
 }

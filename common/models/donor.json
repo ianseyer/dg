@@ -6,9 +6,19 @@
     "validateUpsert": true
   },
   "properties": {
-    "causes":["String"],
-    "content":["String"],
-    "stripeId":"String"
+    "causes": {
+      "type": [
+        "String"
+      ]
+    },
+    "content": {
+      "type": [
+        "String"
+      ]
+    },
+    "stripeId": {
+      "type": "String"
+    }
   },
   "validations": [],
   "relations": {},
@@ -20,5 +30,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": []
+  "methods": {}
 }
