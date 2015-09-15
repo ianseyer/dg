@@ -22,7 +22,7 @@ module.exports = function(Donation) {
       email: donor.email
     })
     .then(function(customer){
-      Donor.findById(donor.id)
+      app.models.Donor.findById(donor.id)
       .then(function(instance){
         instance.stripeId = customer.id
         instance.save()
