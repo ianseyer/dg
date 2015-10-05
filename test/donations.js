@@ -41,6 +41,9 @@ stripe.tokens.create(
 .then(function(token){
   testToken = token.id;
 })
+.catch(function(err){
+  throw(err)
+})
 
 describe('Making a donation', function(){
   it("errors if it doesn't receive donor object", function(done){

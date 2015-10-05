@@ -5,8 +5,6 @@ var cors = require('cors');
 var app = module.exports = loopback();
 var _ = require('lodash');
 
-//load in the newrelic nodejs agent to handle reporting
-require('newrelic');
 //use dotenv to load in environment variables [defined in .env]
 require('dotenv').load()
 
