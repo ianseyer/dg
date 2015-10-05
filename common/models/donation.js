@@ -13,6 +13,7 @@ module.exports = function(Donation) {
       cb(null, charge)
     })
     .catch(function(err){
+      console.log(err);
       cb(err, null)
     })
   }
@@ -27,12 +28,13 @@ module.exports = function(Donation) {
       .then(function(instance){
         instance.stripeId = customer.id
         instance.save()
-      })
-      .then(function(response){
-        cb(null, "Card successfully added.")
+        .then(function(response){
+          cb(null, "Card successfully added.")
+        })
       })
     })
     .catch(function(err){
+      console.log(err);
       cb(err, null);
     })
   }
