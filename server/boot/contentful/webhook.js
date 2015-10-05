@@ -9,7 +9,7 @@
 *        - email them a link to view the generated DG percentageFee
 * DO NOTICE WE ARE USING CONTENTFUL MANAGEMENT API, NOT DELIVERY API
 */
-var contentful = require('contentful-management');
+var client = require('client');
 var stripe = require('stripe');
 var subscription = require('../../common/helpers/subscription.js');
 
@@ -43,7 +43,7 @@ module.exports = function(app) {
         5. Poll for users(?)
       */
       var entry = req.body;
-      contentfulClient.getSpace(entry.space.sys.id)
+      contentful.space(entry.space.sys.id)
       .then(function(space){
         space.getEntries({content_type: 'queue'})
         .then(function(entries){
@@ -56,6 +56,22 @@ module.exports = function(app) {
             else{
               //Grab the first user in the queue
               User.findById(queue.users[0])
+              .then(function(user){
+                //Assign them the content
+                //TODO write assign method. should handle emailing notifications.
+                user.assign(entry.sys.id);
+                .then(function(user){
+                  entry.fields.assigned = true;
+                  entry.fields.assignee = true;
+                  space.publishEntry(entry)
+                  .then(function(entry){continue})
+                  .catch(function(err){console.log(err); throw(err);})
+                })
+                .catch(function(err){
+                  console.log(err)
+                  throw(err)
+                })
+              })
             }
           }
           else{

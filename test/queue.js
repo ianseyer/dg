@@ -1,6 +1,7 @@
 var chai = require('chai'),
     should = chai.should(),
     supertest = require('supertest'),
+    client = require('../server/boot/contentful/client')
     api = supertest('http://localhost:3000');
 
 chai.use(require("chai-as-promised"))
@@ -45,7 +46,11 @@ describe('New entry published', function(){
                 }
               ]
             }
-  contentfulClient.publishEntry(testEntry);
+  client.space('ngwrqts9pn9q')
+  .then(function(space){
+    space.publishEntry(testEntry);
+  })
+
   it("should assign the content to the first user in the queue, if there are users", function(done){
 
   })
