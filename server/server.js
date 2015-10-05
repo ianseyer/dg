@@ -3,7 +3,13 @@ var boot = require('loopback-boot');
 var cors = require('cors');
 
 var app = module.exports = loopback();
+var _ = require('lodash');
+
+//load in the newrelic nodejs agent to handle reporting
 require('newrelic');
+//use dotenv to load in environment variables [defined in .env]
+require('dotenv').load()
+
 app.use(cors());
 app.start = function() {
   // start the web server

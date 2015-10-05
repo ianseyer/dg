@@ -27,7 +27,7 @@ module.exports = function(donor) {
 
     donor.verify(options, function(err, response) {
       if (err) {
-        next(err);
+        console.log(err);
         return;
       }
 

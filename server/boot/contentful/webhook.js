@@ -34,8 +34,36 @@ module.exports = function(app) {
     */
 
     //An Entry was published
-    if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish' && entry.contentType.sys.id == "story"){
-      entry = req.body;
+    if(req.headers['X-Contentful-Topic'] == 'ContentManagement.Entry.publish'){
+      /*
+        1. Grab our entry.
+        2. Grab the Space of the published entry
+        3. Grab the Queue object from that Space
+        4. Append the entry to the Queue's "users" object
+        5. Poll for users(?)
+      */
+      var entry = req.body;
+      contentfulClient.getSpace(entry.space.sys.id)
+      .then(function(space){
+        space.getEntries({content_type: 'queue'})
+        .then(function(entries){
+          if(entries.total.length){
+            var queue = entries[0];
+            if(queue.users.length === 0){
+              console.log("No users in queue.");
+              return;
+            }
+            else{
+              //Grab the first user in the queue
+              User.findById(queue.users[0])
+            }
+          }
+          else{
+            console.log("No Queue Object found!");
+            return "No Queue Object Found!";
+          }
+        })
+      })
       };
 
     //If a campaign is published
