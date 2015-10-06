@@ -13,27 +13,20 @@ module.exports = function(Donation) {
       cb(null, charge)
     })
     .catch(function(err){
-      console.log(err);
       cb(err, null)
     })
   }
 
   Donation.addCard = function(donor, token, cb){
-    stripe.customers.create({
-      source: token,
-      email: donor.email
+    console.log(donor);
+    stripe.customers.update(donor.stripeId, {
+      source: token
     })
     .then(function(customer){
-      app.models.Donor.findById(donor.id)
-      .then(function(instance){
-        instance.stripeId = customer.id
-        instance.save()
-        .then(function(response){
-          cb(null, "Card successfully added.")
-        })
-      })
+      cb(null, donor);
     })
     .catch(function(err){
+      console.log('error in adding card')
       console.log(err);
       cb(err, null);
     })

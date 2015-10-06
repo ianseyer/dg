@@ -6,44 +6,26 @@ var stripe = require('stripe')(process.env.SECRET_KEY);
 chai.use(require("chai-as-promised"))
 var should = chai.should()
 
-testDonor = {
-  "causes": [
-    ""
-  ],
-  "content": [
-    ""
-  ],
-  "stripeId": "cus_6pJK65q0pMVhlG",
-  "realm": "",
-  "username": "",
-  "credentials": "object",
-  "challenges": "object",
-  "email": "mr.test@gmail.com",
-  "emailVerified": false,
-  "verificationToken": "",
-  "status": "",
-  "created": "",
-  "lastUpdated": "",
-  "id": 0
-}
-
-var testToken;
-stripe.tokens.create(
-  {
-    card: {
-      "number": '4242424242424242',
-      "exp_month": 12,
-      "exp_year": 2022,
-      "cvc": '123'
-    }
+var testDonor = {
+    "causes": [
+      ""
+    ],
+    "content": [
+      ""
+    ],
+    "stripeId": "cus_6pJK65q0pMVhlG",
+    "realm": "",
+    "username": "",
+    "credentials": "object",
+    "challenges": "object",
+    "email": "mr.test@gmail.com",
+    "emailVerified": false,
+    "verificationToken": "",
+    "status": "",
+    "created": null,
+    "lastUpdated": null,
+    "id": 0
   }
-)
-.then(function(token){
-  testToken = token.id;
-})
-.catch(function(err){
-  throw(err)
-})
 
 describe('Making a donation', function(){
   it("errors if it doesn't receive donor object", function(done){
@@ -97,8 +79,24 @@ describe('Adding a card', function(){
   });
 
   it("succeeds if token and donor is valid", function(done){
-    api.post('/api/donations/addCard')
-    .send({'donor':testDonor, 'token':testToken})
-    .expect(200, done)
+    stripe.tokens.create(
+      {
+        card: {
+          "number": '4242424242424242',
+          "exp_month": 12,
+          "exp_year": 2022,
+          "cvc": '123'
+        }
+      }
+    )
+    .then(function(token){
+      console.log(token.id)
+      api.post('/api/donations/addCard')
+      .send({'donor':testDonor, 'token':token.id})
+      .expect(200, done)
+    })
+    .catch(function(err){
+      throw(err)
+    })
   })
 })

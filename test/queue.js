@@ -51,13 +51,13 @@ describe('New entry published', function(){
     space.publishEntry(testEntry);
   })
 
-  it("should assign the content to the first user in the queue, if there are users", function(done){
-
-  })
-
-  it("should do nothing if there are no users in the queue", function(done){
-
-  })
+  // it("should assign the content to the first user in the queue, if there are users", function(done){
+  //
+  // })
+  //
+  // it("should do nothing if there are no users in the queue", function(done){
+  //
+  // })
 });
 
 describe("New user subscription", function(){
