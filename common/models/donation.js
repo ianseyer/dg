@@ -19,8 +19,9 @@ module.exports = function(Donation) {
 
   Donation.addCard = function(donor, token, cb){
     console.log(donor);
+    console.log(token);
     stripe.customers.update(donor.stripeId, {
-      source: token
+      source: token.id
     })
     .then(function(customer){
       cb(null, donor);
