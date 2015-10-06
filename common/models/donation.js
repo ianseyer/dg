@@ -18,18 +18,19 @@ module.exports = function(Donation) {
   }
 
   Donation.addCard = function(donor, token, cb){
-    console.log(donor);
-    console.log(token);
-    stripe.customers.update(donor.stripeId, {
-      source: token.id
-    })
-    .then(function(customer){
-      cb(null, donor);
-    })
-    .catch(function(err){
-      console.log('error in adding card')
-      console.log(err);
-      cb(err, null);
+    Donor.findById(donor.id)
+    .then(function(instance){
+      stripe.customers.update(instance.stripeId, {
+        source: token
+      })
+      .then(function(customer){
+        cb(null, instance);
+      })
+      .catch(function(err){
+        console.log('error in adding card')
+        console.log(err);
+        cb(err, null);
+      })
     })
   }
 
