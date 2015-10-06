@@ -7,24 +7,7 @@ chai.use(require("chai-as-promised"))
 var should = chai.should()
 
 var testDonor = {
-    "causes": [
-      ""
-    ],
-    "content": [
-      ""
-    ],
-    "stripeId": "cus_6pJK65q0pMVhlG",
-    "realm": "",
-    "username": "",
-    "credentials": "object",
-    "challenges": "object",
-    "email": "mr.test@gmail.com",
-    "emailVerified": false,
-    "verificationToken": "",
-    "status": "",
-    "created": null,
-    "lastUpdated": null,
-    "id": 0
+    "id":4
   }
 
 describe('Making a donation', function(){
