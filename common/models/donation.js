@@ -18,6 +18,8 @@ module.exports = function(Donation) {
   }
 
   Donation.addCard = function(donor, token, cb){
+    console.log(donor)
+    console.log(token)
     Donor.findById(donor.id)
     .then(function(instance){
       stripe.customers.update(instance.stripeId, {
