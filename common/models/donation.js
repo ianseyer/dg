@@ -22,18 +22,11 @@ module.exports = function(Donation) {
     console.log(token)
     app.models.Donor.findById(donor.id)
     .then(function(instance){
-      stripe.customers.create({
-        source: token,
-        email: instance.email
+      stripe.customers.update(instance.stripeId, {
+        source: token
       })
       .then(function(customer){
-        instance.updateAttribute('stripeId', customer.id)
-        .then(function(instance){
-          cb(null, instance);
-        })
-        .catch(function(error){
-          cb(error, null);
-        })
+        cb(null, instance);
       })
       .catch(function(err){
         console.log('error in adding card')
