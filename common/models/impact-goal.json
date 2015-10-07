@@ -1,13 +1,16 @@
 {
-  "name": "donation",
-  "base": "Model",
+  "name": "impactGoal",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "anonymous": {
-      "type": "boolean"
+    "description": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
     },
     "amount": {
       "type": "number"

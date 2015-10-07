@@ -10,5 +10,4 @@ module.exports = function(donor) {
   //first, clear our ACLs.
   //as described here: https://github.com/strongloop/loopback/issues/559
   clearacl.clearBaseACLs(donor, require('./donor.json'));
-
 };

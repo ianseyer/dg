@@ -1,0 +1,54 @@
+{
+  "name": "Cause",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "featuredImage": {
+      "type": "string"
+    },
+    "position": {
+      "type": "geopoint"
+    },
+    "totalGoal": {
+      "type": "number"
+    },
+    "goalText": {
+      "type": "string"
+    },
+    "aspiration": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "indexText": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "entries": {
+      "type": "hasMany",
+      "model": "entry",
+      "foreignKey": ""
+    },
+    "impactGoal": {
+      "type": "hasOne",
+      "model": "impactGoal",
+      "foreignKey": ""
+    },
+    "donations": {
+      "type": "hasMany",
+      "model": "donation",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
