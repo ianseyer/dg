@@ -22,7 +22,7 @@ module.exports = function(Donation) {
     console.log(token)
     app.models.Donor.findById(donor.id)
     .then(function(instance){
-      stripe.customers.update(instance.stripeId, {
+      stripe.customers.update(donor.stripeId, {
         source: token
       })
       .then(function(customer){
@@ -33,6 +33,9 @@ module.exports = function(Donation) {
         console.log(err);
         cb(err, null);
       })
+    })
+    .catch(function(err){
+      cb(err, null)
     })
   }
 
