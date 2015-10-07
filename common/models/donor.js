@@ -11,5 +11,4 @@ module.exports = function(donor) {
   //as described here: https://github.com/strongloop/loopback/issues/559
   clearacl.clearBaseACLs(donor, require('./donor.json'));
 
-  //send verification email after registration
 };

@@ -38,7 +38,23 @@
     "public": false
   },
   "donation": {
-    "dataSource": null,
+    "dataSource": "postgres",
+    "public": true
+  },
+  "cause": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "customField": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "entry": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "impactGoal": {
+    "dataSource": "postgres",
     "public": true
   }
 }
