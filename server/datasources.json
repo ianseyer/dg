@@ -7,7 +7,7 @@
     "debug": true
   },
   "gmail": {
-    "name": "gmail",
+    "name": "mail",
     "defaultForType": "mail",
     "connector": "mail",
     "transports": [
