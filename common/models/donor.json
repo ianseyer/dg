@@ -21,7 +21,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "entries": {
+      "type": "hasMany",
+      "model": "entry",
+      "foreignKey": ""
+    },
+    "causes": {
+      "type": "hasMany",
+      "model": "cause",
+      "foreignKey": ""
+    }
+  },
   "acls": [
     {
       "accessType": "*",
