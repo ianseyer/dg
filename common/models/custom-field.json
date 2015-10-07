@@ -1,15 +1,21 @@
 {
-  "name": "donation",
-  "base": "Model",
+  "name": "customField",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "anonymous": {
-      "type": "boolean"
+    "fieldType": {
+      "type": "string"
     },
-    "amount": {
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "any"
+    },
+    "order": {
       "type": "number"
     }
   },

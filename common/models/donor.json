@@ -6,22 +6,37 @@
     "validateUpsert": true
   },
   "properties": {
-    "causes": {
-      "type": [
-        "String"
-      ]
+    "fbKey": {
+      "type": "String"
     },
-    "content": {
-      "type": [
-        "String"
-      ]
+    "photo": {
+      "type": "String"
+    },
+    "bio": {
+      "type": "String"
     },
     "stripeId": {
       "type": "String"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "entries": {
+      "type": "hasMany",
+      "model": "entry",
+      "foreignKey": ""
+    },
+    "causes": {
+      "type": "hasMany",
+      "model": "Cause",
+      "foreignKey": ""
+    },
+    "donations": {
+      "type": "hasMany",
+      "model": "donation",
+      "foreignKey": ""
+    }
+  },
   "acls": [
     {
       "accessType": "*",

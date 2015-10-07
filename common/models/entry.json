@@ -1,0 +1,32 @@
+{
+  "name": "entry",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "individual": {
+      "type": "boolean"
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "locatio": {
+      "type": "geopoint"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customFields": {
+      "type": "hasMany",
+      "model": "customField",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
