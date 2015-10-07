@@ -7,13 +7,7 @@
   },
   "properties": {},
   "validations": [],
-  "relations": {
-    "cause": {
-      "type": "hasOne",
-      "model": "cause",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }
