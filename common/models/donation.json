@@ -5,6 +5,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "anonymous": {
       "type": "boolean"
@@ -16,8 +19,5 @@
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": {},
-  "mixins": {
-    "TimeStamp" : true
-  }
+  "methods": {}
 }

@@ -1264,6 +1264,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Donor.causes.link() instead.
+        "prototype$__link__causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Donor.causes.unlink() instead.
+        "prototype$__unlink__causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Donor.causes.exists() instead.
+        "prototype$__exists__causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "HEAD"
+        },
+
         // INTERNAL. Use Donor.entries.findById() instead.
         "prototype$__findById__entries": {
           params: {
@@ -2064,6 +2091,65 @@ module.factory(
           method: "POST"
         },
 
+        // INTERNAL. Use Cause.donors.findById() instead.
+        "::findById::Cause::donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Cause.donors.destroyById() instead.
+        "::destroyById::Cause::donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Cause.donors.updateById() instead.
+        "::updateById::Cause::donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Cause.donors() instead.
+        "::get::Cause::donors": {
+          isArray: true,
+          url: urlBase + "/Causes/:id/donors",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Cause.donors.create() instead.
+        "::create::Cause::donors": {
+          url: urlBase + "/Causes/:id/donors",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Cause.donors.createMany() instead.
+        "::createMany::Cause::donors": {
+          isArray: true,
+          url: urlBase + "/Causes/:id/donors",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Cause.donors.destroyAll() instead.
+        "::delete::Cause::donors": {
+          url: urlBase + "/Causes/:id/donors",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Cause.donors.count() instead.
+        "::count::Cause::donors": {
+          url: urlBase + "/Causes/:id/donors/count",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Donor#getCurrent
@@ -2507,6 +2593,42 @@ module.factory(
 
         /**
          * @ngdoc method
+         * @name lbServices.Donor.causes#exists
+         * @methodOf lbServices.Donor.causes
+         *
+         * @description
+         *
+         * Check the existence of causes relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for causes
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cause` object.)
+         * </em>
+         */
+        R.causes.exists = function() {
+          var TargetResource = $injector.get("Cause");
+          var action = TargetResource["::exists::donor::causes"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
          * @name lbServices.Donor.causes#findById
          * @methodOf lbServices.Donor.causes
          *
@@ -2538,6 +2660,79 @@ module.factory(
         R.causes.findById = function() {
           var TargetResource = $injector.get("Cause");
           var action = TargetResource["::findById::donor::causes"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Donor.causes#link
+         * @methodOf lbServices.Donor.causes
+         *
+         * @description
+         *
+         * Add a related item by id for causes.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for causes
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cause` object.)
+         * </em>
+         */
+        R.causes.link = function() {
+          var TargetResource = $injector.get("Cause");
+          var action = TargetResource["::link::donor::causes"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Donor.causes#unlink
+         * @methodOf lbServices.Donor.causes
+         *
+         * @description
+         *
+         * Remove the causes relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for causes
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.causes.unlink = function() {
+          var TargetResource = $injector.get("Cause");
+          var action = TargetResource["::unlink::donor::causes"];
           return action.apply(R, arguments);
         };
 
@@ -3072,6 +3267,33 @@ module.factory(
       { 'id': '@id' },
       {
 
+        // INTERNAL. Use Cause.donors.findById() instead.
+        "prototype$__findById__donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Cause.donors.destroyById() instead.
+        "prototype$__destroyById__donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Cause.donors.updateById() instead.
+        "prototype$__updateById__donors": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Causes/:id/donors/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Cause.impactGoal() instead.
         "prototype$__get__impactGoal": {
           url: urlBase + "/Causes/:id/impactGoal",
@@ -3126,6 +3348,31 @@ module.factory(
         // INTERNAL. Use Cause.organization() instead.
         "prototype$__get__organization": {
           url: urlBase + "/Causes/:id/organization",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Cause.donors() instead.
+        "prototype$__get__donors": {
+          isArray: true,
+          url: urlBase + "/Causes/:id/donors",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Cause.donors.create() instead.
+        "prototype$__create__donors": {
+          url: urlBase + "/Causes/:id/donors",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Cause.donors.destroyAll() instead.
+        "prototype$__delete__donors": {
+          url: urlBase + "/Causes/:id/donors",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Cause.donors.count() instead.
+        "prototype$__count__donors": {
+          url: urlBase + "/Causes/:id/donors/count",
           method: "GET"
         },
 
@@ -3600,6 +3847,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Donor.causes.link() instead.
+        "::link::donor::causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Donor.causes.unlink() instead.
+        "::unlink::donor::causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Donor.causes.exists() instead.
+        "::exists::donor::causes": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/donors/:id/causes/rel/:fk",
+          method: "HEAD"
+        },
+
         // INTERNAL. Use Donor.causes() instead.
         "::get::donor::causes": {
           isArray: true,
@@ -3826,6 +4100,307 @@ module.factory(
     */
     R.modelName = "Cause";
 
+    /**
+     * @ngdoc object
+     * @name lbServices.Cause.donors
+     * @header lbServices.Cause.donors
+     * @object
+     * @description
+     *
+     * The object `Cause.donors` groups methods
+     * manipulating `Donor` instances related to `Cause`.
+     *
+     * Call {@link lbServices.Cause#donors Cause.donors()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause#donors
+         * @methodOf lbServices.Cause
+         *
+         * @description
+         *
+         * Queries donors of Cause.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Donor` object.)
+         * </em>
+         */
+        R.donors = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::get::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#count
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Counts donors of Cause.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.donors.count = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::count::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#create
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Creates a new instance in donors of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Donor` object.)
+         * </em>
+         */
+        R.donors.create = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::create::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#createMany
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Creates a new instance in donors of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Donor` object.)
+         * </em>
+         */
+        R.donors.createMany = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::createMany::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#destroyAll
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Deletes all donors of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.donors.destroyAll = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::delete::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#destroyById
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Delete a related item by id for donors.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for donors
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.donors.destroyById = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::destroyById::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#findById
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Find a related item by id for donors.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for donors
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Donor` object.)
+         * </em>
+         */
+        R.donors.findById = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::findById::Cause::donors"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cause.donors#updateById
+         * @methodOf lbServices.Cause.donors
+         *
+         * @description
+         *
+         * Update a related item by id for donors.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for donors
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Donor` object.)
+         * </em>
+         */
+        R.donors.updateById = function() {
+          var TargetResource = $injector.get("Donor");
+          var action = TargetResource["::updateById::Cause::donors"];
+          return action.apply(R, arguments);
+        };
     /**
      * @ngdoc object
      * @name lbServices.Cause.impactGoal

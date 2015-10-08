@@ -5,6 +5,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "fbKey": {
       "type": "String"
@@ -26,14 +29,14 @@
       "model": "entry",
       "foreignKey": ""
     },
-    "causes": {
-      "type": "hasMany",
-      "model": "Cause",
-      "foreignKey": ""
-    },
     "donations": {
       "type": "hasMany",
       "model": "donation",
+      "foreignKey": ""
+    },
+    "causes": {
+      "type": "hasAndBelongsToMany",
+      "model": "Cause",
       "foreignKey": ""
     }
   },
@@ -45,8 +48,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {},
-  "mixins": {
-    "TimeStamp" : true
-  }
+  "methods": {}
 }
