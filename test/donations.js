@@ -6,25 +6,25 @@ var stripe = require('stripe')(process.env.SECRET_KEY);
 chai.use(require("chai-as-promised"))
 var should = chai.should()
 
-var testDonor =  {
-    "causes": [
-      ""
-    ],
-    "content": [
-      ""
-    ],
-    "stripeId": "cus_77alZ0Mr0iQrPJ",
-    "realm": "",
-    "username": "",
-    "credentials": "object",
-    "challenges": "object",
-    "email": "mr.test@gmail.com",
-    "emailVerified": false,
-    "verificationToken": "",
-    "status": "",
+var testDonor =   {
+    "fbKey": null,
+    "photo": null,
+    "bio": null,
+    "stripeId": null,
+    "realm": null,
+    "username": null,
+    "credentials": null,
+    "challenges": null,
+    "email": "d@delw.in",
+    "emailVerified": null,
+    "verificationToken": null,
+    "status": null,
     "created": null,
     "lastUpdated": null,
-    "id": 0
+    "id": 1,
+    "createdAt": "2015-10-08T19:37:42.024Z",
+    "updatedAt": "2015-10-08T19:47:08.629Z",
+    "causeId": 3
   }
 
 describe('Making a donation', function(){
