@@ -22,8 +22,9 @@ module.exports = function(Donation) {
     console.log(token)
     app.models.Donor.findById(donor.id)
     .then(function(instance){
-      stripe.customers.update(instance.stripeId, {
-        source: token
+      stripe.customers.create({
+        source: token,
+        email: instance.email
       })
       .then(function(customer){
         cb(null, instance);
