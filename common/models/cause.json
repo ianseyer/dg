@@ -47,8 +47,16 @@
       "type": "hasMany",
       "model": "donation",
       "foreignKey": ""
+    },
+    "organization": {
+      "type": "belongsTo",
+      "model": "organization",
+      "foreignKey": ""
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {},
+  "mixins": {
+    "TimeStamp" : true
+  }
 }

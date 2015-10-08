@@ -1,29 +1,32 @@
 {
-  "name": "entry",
+  "name": "organization",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "individual": {
-      "type": "boolean"
-    },
-    "public": {
-      "type": "boolean"
-    },
-    "title": {
+    "name": {
       "type": "string"
     },
-    "locatio": {
+    "description": {
+      "type": "string"
+    },
+    "location": {
       "type": "geopoint"
     }
   },
   "validations": [],
   "relations": {
-    "customFields": {
+    "entries": {
       "type": "hasMany",
-      "model": "customField",
+      "model": "entry",
+      "foreignKey": "",
+      "through": "Cause"
+    },
+    "causes": {
+      "type": "hasMany",
+      "model": "Cause",
       "foreignKey": ""
     }
   },

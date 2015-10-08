@@ -45,5 +45,8 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {},
+  "mixins": {
+    "TimeStamp" : true
+  }
 }

@@ -10,7 +10,8 @@
       "loopback/common/mixins",
       "loopback/server/mixins",
       "../common/mixins",
-      "./mixins"
+      "./mixins",
+      "../node_modules/loopback-ds-timestamp-mixin"
     ]
   },
   "User": {
@@ -54,6 +55,10 @@
     "public": true
   },
   "customField": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "organization": {
     "dataSource": "postgres",
     "public": true
   }
