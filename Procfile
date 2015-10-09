@@ -1,1 +1,1 @@
-web: slc run
+web: DEBUG=* node server/server.js
