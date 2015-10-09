@@ -27,7 +27,10 @@ module.exports = function(Donation) {
         email: instance.email
       })
       .then(function(customer){
-        cb(null, instance);
+        instance.updateAttribute('stripeId', customer.id)
+        .then(function(instance){
+          cb(null, instance)
+        })
       })
       .catch(function(err){
         console.log('error in adding card')
