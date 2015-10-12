@@ -35,7 +35,8 @@
     "donations": {
       "type": "hasMany",
       "model": "donation",
-      "foreignKey": ""
+      "foreignKey": "",
+      "through": "Cause"
     },
     "causes": {
       "type": "hasAndBelongsToMany",

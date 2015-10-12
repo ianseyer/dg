@@ -5,19 +5,19 @@
   "options": {
     "validateUpsert": true
   },
-  "mixins": {
-    "TimeStamp": true
-  },
   "properties": {
-    "anonymous": {
-      "type": "boolean"
-    },
     "amount": {
       "type": "number"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "cause": {
+      "type": "belongsTo",
+      "model": "Cause",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
