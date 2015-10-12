@@ -1,0 +1,19 @@
+{
+  "name": "admin",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "organization": {
+      "type": "belongsTo",
+      "model": "organization",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

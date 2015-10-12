@@ -28,6 +28,11 @@
       "type": "hasMany",
       "model": "customField",
       "foreignKey": ""
+    },
+    "donor": {
+      "type": "belongsTo",
+      "model": "donor",
+      "foreignKey": ""
     }
   },
   "acls": [],

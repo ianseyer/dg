@@ -61,5 +61,9 @@
   "Donation": {
     "dataSource": "postgres",
     "public": true
+  },
+  "admin": {
+    "dataSource": "postgres",
+    "public": true
   }
 }
