@@ -20,6 +20,9 @@
     },
     "stripeId": {
       "type": "String"
+    },
+    "name": {
+      "type": "String"
     }
   },
   "validations": [],

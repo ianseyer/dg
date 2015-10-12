@@ -4,13 +4,24 @@ var app = require('../../server/server');
 module.exports = function(Donation) {
   //Define custom routes
   Donation.create = function(donor, amount, cb){
+    console.log(donor)
     stripe.charges.create({
       customer: donor.stripeId,
       amount: amount*100,
       currency: 'USD',
     })
     .then(function(charge){
-      cb(null, charge)
+      app.models.Donation.create({
+        anonymous:false,
+        amount:amount,
+        name:donor.name
+      })
+      .then(function(donation){
+        cb(null, donation)
+      })
+      .catch(function(err){
+        cb(err, null);
+      })
     })
     .catch(function(err){
       cb(err, null)

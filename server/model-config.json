@@ -39,7 +39,7 @@
     "public": false
   },
   "donation": {
-    "dataSource": null,
+    "dataSource": "postgres",
     "public": true
   },
   "Cause": {
