@@ -58,7 +58,7 @@
     "dataSource": "postgres",
     "public": true
   },
-  "donation": {
+  "Donation": {
     "dataSource": "postgres",
     "public": true
   }

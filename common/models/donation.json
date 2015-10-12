@@ -1,9 +1,9 @@
 {
-  "name": "donation",
+  "name": "Donation",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": false
   },
   "properties": {
     "amount": {
@@ -15,6 +15,11 @@
     "cause": {
       "type": "belongsTo",
       "model": "Cause",
+      "foreignKey": ""
+    },
+    "donor": {
+      "type": "belongsTo",
+      "model": "donor",
       "foreignKey": ""
     }
   },
