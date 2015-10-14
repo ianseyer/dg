@@ -42,6 +42,11 @@
       "type": "hasAndBelongsToMany",
       "model": "Cause",
       "foreignKey": ""
+    },
+    "waitingForContentFrom": {
+      "type": "hasMany",
+      "model": "Cause",
+      "foreignKey": ""
     }
   },
   "acls": [

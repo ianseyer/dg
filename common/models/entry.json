@@ -20,6 +20,9 @@
     },
     "location": {
       "type": "geopoint"
+    },
+    "body": {
+      "type": "string"
     }
   },
   "validations": [],
@@ -32,6 +35,11 @@
     "donor": {
       "type": "belongsTo",
       "model": "donor",
+      "foreignKey": ""
+    },
+    "cause": {
+      "type": "belongsTo",
+      "model": "cause",
       "foreignKey": ""
     }
   },
