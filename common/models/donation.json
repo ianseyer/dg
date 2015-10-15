@@ -2,8 +2,12 @@
   "name": "Donation",
   "base": "PersistedModel",
   "idInjection": true,
+
   "options": {
     "validateUpsert": false
+  },
+  "mixins": {
+    "TimeStamp": true
   },
   "properties": {
     "amount": {

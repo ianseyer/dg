@@ -17,8 +17,8 @@
         "secure": true,
         "port": 465,
         "auth": {
-          "user": "name@gmail.com",
-          "pass": "pass"
+          "user": "ian@misfit-inc.com",
+          "pass": ";lkj;lkjJKL;JKL;"
         }
       }
     ]
