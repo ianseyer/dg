@@ -63,83 +63,83 @@ module.exports = function(Donation) {
     3. assigns that entry to the donor
     4. emails that donor to notify them!
   */
-  // Donation.observe('after save', function addUserToQueue(ctx, next){
-  //   if(ctx.instance){
-  //     app.models.Donor.findById(ctx.instance.donorId)
-  //     .then(function(donor){
-  //       app.models.Entry.find({
-  //         {order: 'created DESC'},
-  //         {where:
-  //           {
-  //             and: [
-  //               {causeId:ctx.instance.causeId}, //that cause
-  //               {donorId:null} //and unassigned
-  //             ]
-  //           }
-  //         }
-  //       })
-  //       .then(function(unused){
-  //         if(unused.length === 0){
-  //           /*
-  //           This handles a situation where no content was found for a new donor.
-  //           It:
-  //             1. Appends that cause to the donor's waitingForContentFrom
-  //             2. Email the user to let them know!
-  //           */
-  //           donor.updateAttribute('waitingForContentFrom', donor.waitingForContentFrom.push(ctx.instance.causeId))
-  //           .then(function(donor){
-  //             email = new Email({
-  //               to: donor.email,
-  //               from: process.env.SENDER_EMAIL,
-  //               subject: "Content coming soon!",
-  //               text: "Hi there! Thank you for your donation to "+ctx.instance.causeId+". Unfortunately, we don't have content for you! Please wait for a while, and we'll let you know as soon as it is available!"
-  //             })
-  //             email.send()
-  //             .then(function(email){
-  //               next()
-  //             })
-  //             .catch(function(err){
-  //               console.log(err)
-  //               //TODO handle the error appropriately
-  //               next()
-  //             })
-  //           })
-  //         }
-  //         //add the oldest entry to the donor's entries
-  //         donor.updateAttribute('entries', entries.push(unused.pop()))
-  //         .then(function(donor){
-  //           //email that user their piece of content
-  //           email = new Email({
-  //             to: donor.email,
-  //             from: process.env.SENDER_EMAIL,
-  //             subject: "You have an update from DirectGiving!",
-  //             text: donor.entries.slice(-1)[0]
-  //           })
-  //           email.send()
-  //           .then(function(email){
-  //             next()
-  //           })
-  //           .catch(function(err){
-  //             console.log(err);
-  //             //TODO handle error properly
-  //           })
-  //         })
-  //         .catch(function(err){
-  //           console.log(err);
-  //           //TODO handle error properly
-  //         })
-  //       })
-  //       .catch(function(err){
-  //         console.log(err);
-  //         //TODO handle error properly
-  //       })
-  //     })
-  //     .catch(function(err){
-  //       console.log(err);
-  //       //TODO handle error properly
-  //     })
-  //   }
-  // })
+  Donation.observe('after save', function addUserToQueue(ctx, next){
+    if(ctx.instance){
+      app.models.Donor.findById(ctx.instance.donorId)
+      .then(function(donor){
+        app.models.Entry.find(
+          {order: 'created DESC'},
+          {where:
+            {
+              and: [
+                {causeId:ctx.instance.causeId}, //that cause
+                {donorId:null} //and unassigned
+              ]
+            }
+          }
+        )
+        .then(function(unused){
+          if(unused.length === 0){
+            /*
+            This handles a situation where no content was found for a new donor.
+            It:
+              1. Appends that cause to the donor's waitingForContentFrom
+              2. Email the user to let them know!
+            */
+            donor.updateAttribute('waitingForContentFrom', donor.waitingForContentFrom.push(ctx.instance.causeId))
+            .then(function(donor){
+              email = new Email({
+                to: donor.email,
+                from: process.env.SENDER_EMAIL,
+                subject: "Content coming soon!",
+                text: "Hi there! Thank you for your donation to "+ctx.instance.causeId+". Unfortunately, we don't have content for you! Please wait for a while, and we'll let you know as soon as it is available!"
+              })
+              email.send()
+              .then(function(email){
+                next()
+              })
+              .catch(function(err){
+                console.log(err)
+                //TODO handle the error appropriately
+                next()
+              })
+            })
+          }
+          //add the oldest entry to the donor's entries
+          donor.updateAttribute('entries', entries.push(unused.pop()))
+          .then(function(donor){
+            //email that user their piece of content
+            email = new Email({
+              to: donor.email,
+              from: process.env.SENDER_EMAIL,
+              subject: "You have an update from DirectGiving!",
+              text: donor.entries.slice(-1)[0]
+            })
+            email.send()
+            .then(function(email){
+              next()
+            })
+            .catch(function(err){
+              console.log(err);
+              //TODO handle error properly
+            })
+          })
+          .catch(function(err){
+            console.log(err);
+            //TODO handle error properly
+          })
+        })
+        .catch(function(err){
+          console.log(err);
+          //TODO handle error properly
+        })
+      })
+      .catch(function(err){
+        console.log(err);
+        //TODO handle error properly
+      })
+    }
+  })
 
   //register our method for HTTP
   Donation.remoteMethod(
