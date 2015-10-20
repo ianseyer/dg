@@ -4,7 +4,8 @@
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
-      "./models"
+      "./models",
+      "./node_modules/loopback-component-passport/lib/models"
     ],
     "mixins": [
       "loopback/common/mixins",
@@ -28,6 +29,14 @@
   "AccessToken": {
     "dataSource": "postgres",
     "public": false
+  },
+  "UserCredential": {
+    "dataSource":"postgres",
+    "public":true
+  },
+  "UserIdentity": {
+    "dataSource": "postgres",
+    "public":true
   },
   "ACL": {
     "dataSource": "postgres",
