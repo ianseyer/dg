@@ -31,12 +31,12 @@
     "public": false
   },
   "UserCredential": {
-    "dataSource":"postgres",
-    "public":true
+    "dataSource": "postgres",
+    "public": true
   },
   "UserIdentity": {
     "dataSource": "postgres",
-    "public":true
+    "public": true
   },
   "ACL": {
     "dataSource": "postgres",
