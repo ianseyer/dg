@@ -16,7 +16,6 @@
    "authPath": "/auth/facebook",
    "callbackPath": "/auth/facebook/callback",
    "successRedirect": "/",
-   "scope": ["email"],
-   "authOptions": {"display": "popup"}
+   "scope": ["email"]
  }
 }

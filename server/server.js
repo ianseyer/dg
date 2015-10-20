@@ -31,7 +31,7 @@ passportConfigurator.init();
 
 // Set up related models
 passportConfigurator.setupModels({
- userModel: app.models.donor,
+ userModel: app.models.Donor,
  userIdentityModel: app.models.userIdentity,
  userCredentialModel: app.models.userCredential
 });
