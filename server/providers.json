@@ -12,7 +12,7 @@
    "module": "passport-facebook",
    "clientID": "187692224898599",
    "clientSecret": "dfe51de8bef2dc36911d095c5cf7f7fc",
-   "callbackURL": "http://localhost:3000/auth/facebook/callback",
+   "callbackURL": "https://loopback-directgiving.herokuapp.com/auth/facebook/callback",
    "authPath": "/auth/facebook",
    "callbackPath": "/auth/facebook/callback",
    "successRedirect": "/",
