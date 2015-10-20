@@ -28,7 +28,7 @@
       "type": "string"
     },
     "body": {
-      "type": "string"
+      "type": "string", "length":1000000
     },
     "indexText": {
       "type": "string"
