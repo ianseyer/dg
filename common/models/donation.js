@@ -7,25 +7,35 @@ module.exports = function(Donation) {
   //after a POST to /api/donations, create the charge via stripe
   Donation.observe('before save', function chargeStripe(ctx, next) {
     if (ctx.instance) {
-      app.models.Donor.findById(ctx.instance.donorId)
-      .then(function(donor){
-        stripe.charges.create({
-          customer: donor.stripeId,
-          amount: ctx.instance.amount*100,
-          currency:'USD'
-        })
-        .then(function(charge){
-          next();
+      app.models.Organization.findById(ctx.instance.causeId)
+      .then(function(cause){
+        app.models.Donor.findById(ctx.instance.donorId)
+        .then(function(donor){
+          stripe.charges.create({
+            customer: donor.stripeId,
+            amount: ctx.instance.amount*100,
+            currency:'USD',
+            destination: cause.organization.stripeId,
+            application_fee: ctx.instance.amount*100*.03
+          })
+          .then(function(charge){
+            next();
+          })
+          .catch(function(err){
+            console.log(err)
+            next();
+          })
         })
         .catch(function(err){
-          console.log(err)
-          next();
+          console.log(err);
+          next(err);
         })
       })
-    } else {
+    }
+    else {
       next();
     }
-  });
+  })
 
   //using a stripe token, generate a stripe customer and store the id in the user
   Donation.addCard = function(donor, token, cb){

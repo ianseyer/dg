@@ -5,7 +5,11 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "name": {
+      "type":"String"
+    }
+  },
   "validations": [],
   "relations": {
     "organization": {
