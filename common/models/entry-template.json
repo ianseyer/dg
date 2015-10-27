@@ -1,0 +1,24 @@
+{
+  "name": "EntryTemplate",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "customFields": {
+      "type": "hasMany",
+      "model": "customField",
+      "foreignKey": ""
+    },
+    "cause": {
+      "type": "belongsTo",
+      "model": "Cause",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

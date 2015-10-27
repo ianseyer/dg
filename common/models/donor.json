@@ -32,7 +32,7 @@
       "model": "entry",
       "foreignKey": ""
     },
-    "donations": {
+    "donation": {
       "type": "hasMany",
       "model": "donation",
       "foreignKey": "",

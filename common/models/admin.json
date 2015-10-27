@@ -7,7 +7,7 @@
   },
   "properties": {
     "name": {
-      "type":"String"
+      "type": "String"
     }
   },
   "validations": [],

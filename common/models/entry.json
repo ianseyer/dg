@@ -22,7 +22,8 @@
       "type": "geopoint"
     },
     "body": {
-      "type":"String", "length":1000000
+      "type": "String",
+      "length": 1000000
     }
   },
   "validations": [],
