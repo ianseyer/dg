@@ -8,31 +8,31 @@ module.exports = function(Organization) {
 
     NOT TESTED
   */
-  Organization.observe('before save', function createStripeConnectAccount(ctx, next){
-    stripe.accounts.create({
-      country: "US",
-      email: ctx.instance.email,
-      managed: true,
-      external_account: ctx.instance.bankToken
-    })
-    .then(function(account){
-      ctx.instance.updateAttributes(
-        {
-          'stripeId':account.id, 'stripeSecret':account.keys.secret, 'stripePublishable':account.keys.publishable
-        }
-      )
-      .then(function(organization){
-        console.log('successfully created new stripe account')
-        next(organization)
-      })
-      .catch(function(err){
-        console.log(err);
-        next(err);
-      })
-    })
-    .catch(function(err){
-      console.log(err);
-      next(err);
-    })
-  })
+  // Organization.observe('before save', function createStripeConnectAccount(ctx, next){
+  //   stripe.accounts.create({
+  //     country: "US",
+  //     email: ctx.instance.email,
+  //     managed: true,
+  //     external_account: ctx.instance.bankToken
+  //   })
+  //   .then(function(account){
+  //     ctx.instance.updateAttributes(
+  //       {
+  //         'stripeId':account.id, 'stripeSecret':account.keys.secret, 'stripePublishable':account.keys.publishable
+  //       }
+  //     )
+  //     .then(function(organization){
+  //       console.log('successfully created new stripe account')
+  //       next(organization)
+  //     })
+  //     .catch(function(err){
+  //       console.log(err);
+  //       next(err);
+  //     })
+  //   })
+  //   .catch(function(err){
+  //     console.log(err);
+  //     next(err);
+  //   })
+  // })
 };
