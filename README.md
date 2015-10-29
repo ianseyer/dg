@@ -5,6 +5,7 @@
 **DirectGiving is a RESTful API built using IBM Loopback.**
 
 It can be run locally by:
+
 1. `heroku git:remote --app solib`
 2. `heroku git:clone --app solib`
 3. mirror your env with heroku's (using export and `heroku config`)
