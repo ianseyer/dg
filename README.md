@@ -19,7 +19,8 @@ That will serve as documentation for routes, expected parameters, etc.
 are handled via stripe connect. Whenever a new organization is created, they are assigned a new managed account, and all payments are processed accordingly
 
 ###*Content*
-when a new entry is published, a few things happen:
+When a new entry is published, a few things happen:
+
 1. we grab all users who have donated to the entry's cause
 2. we find (if any) a user who has donated but not received a specialized entry
 3. we assign content to them. if no users are pending, then it is added without an assigned donor [functionally placing it in the queue]
