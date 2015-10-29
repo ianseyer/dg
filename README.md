@@ -26,3 +26,6 @@ when a new entry is published, a few things happen:
 
 ###*Onboarding*
 [tbd]
+
+###*Testing*
+Everything in `/test` will be run by using `make test`
