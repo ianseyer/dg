@@ -6,8 +6,8 @@
 
 It can be run locally by:
 
-1. `heroku git:remote --app solib`
-2. `heroku git:clone --app solib`
+1. `heroku git:remote --app loopback-directgiving`
+2. `heroku git:clone --app loopback-directgiving`
 3. mirror your env with heroku's (using export and `heroku config`)
 4. npm install
 5. node .
