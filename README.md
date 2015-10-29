@@ -2,7 +2,7 @@
 
 ##Hello and welcome to the DirectGiving API. We hope you find your stay comfortable and welcoming. Breakfast is served at 11.
 
-**DirectGiving is a RESTful API built using IBM Loopback.**
+**DirectGiving is a RESTful API built using IBM Loopback, and running on Heroku.**
 
 It can be run locally by:
 
@@ -29,3 +29,6 @@ when a new entry is published, a few things happen:
 
 ###*Testing*
 Everything in `/test` will be run by using `make test`
+
+###*Maintenance*
+The database is PostGreSQL database running via the pg:addon from Heroku. It is being backed up nightly, and backups can be viewed by running `heroku pg:backups`.
